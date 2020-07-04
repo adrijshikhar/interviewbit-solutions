@@ -6,23 +6,16 @@ using namespace std;
 
 vector<vector<int>> prettyPrint(int A)
 {
-  int n = (2 * A) - 1, m, k;
+  int n = (2 * A) - 1, p, q;
   vector<vector<int>> B(n);
 
   for (int i = 0; i < n; i++)
   {
     for (int j = 0; j < n; j++)
     {
-      m = abs((n - 1) / 2 - j) + 1;
-      k = abs((n - 1) / 2 - i) + 1;
-      if (j < k || j > n - 1 - k)
-      {
-        B[i].push_back(m);
-      }
-      else
-      {
-        B[i].push_back(abs(A - i));
-      }
+      p = abs((n - 1) / 2 - j) + 1;
+      q = abs((n - 1) / 2 - i) + 1;
+      B[i].push_back(max(p, q));
     }
   }
 
@@ -42,8 +35,6 @@ int main()
     }
     cout << endl;
   }
-
-  // cout << v2[0][0] << " ";
 
   return 0;
 }
