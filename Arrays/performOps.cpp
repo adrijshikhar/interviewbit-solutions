@@ -28,7 +28,7 @@ int main()
   {
     for (int j = 0; j < B[i].size(); j++)
       cout << B[i][j] << " ";
-  }w
+  }
 
   return 0;
 }
