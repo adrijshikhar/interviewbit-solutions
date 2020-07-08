@@ -12,29 +12,22 @@ int isPalindrome(int A)
   }
 
   string str = to_string(A);
-  int n = str.size(), flag = 0;
+  int n = str.size(), flag = 1;
   for (int i = 0; i < n / 2; i++)
   {
     if (str.at(i) != str.at(n - 1 - i))
     {
-      flag = 1;
+      flag = 0;
       break;
     }
   }
 
-  if (flag == 0)
-  {
-    return true;
-  }
-  else
-  {
-    return false;
-  }
+  return flag;
 }
 
 int main()
 {
-  int v1 = 12;
+  int v1 = -121;
   int v2 = isPalindrome(v1);
   cout << v2 << " ";
   return 0;
