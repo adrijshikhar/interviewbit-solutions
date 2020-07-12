@@ -5,10 +5,6 @@ using namespace std;
 int threeSumClosest(vector<int> &A, int B)
 {
   sort(A.begin(), A.end());
-  for (int k = 0; k < A.size(); k++)
-  {
-    // cout << A[k] << " ";
-  }
 
   int ans = INT_MAX, low = 0, high = A.size() - 1, s = 0, minDiff = INT_MAX;
   for (int i = 0; i < A.size() - 2; i++)
@@ -19,7 +15,6 @@ int threeSumClosest(vector<int> &A, int B)
     {
       s = A[low] + A[high] + A[i];
       int diff = abs(B - s);
-      cout << ans << " " << s << " " << A[low] << " " << A[high] << " " << A[i] << " " << endl;
       if (diff < minDiff)
       {
         minDiff = diff;
