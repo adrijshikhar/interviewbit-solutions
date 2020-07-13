@@ -9,27 +9,19 @@ struct ListNode
   ListNode(int x) : val(x), next(NULL) {}
 };
 
-int lPalin(ListNode *A)
+ListNode *reverseList(ListNode *A)
 {
-  ListNode *slow = A;
-  stack<int> s;
-  while (slow != NULL)
-  {
-    s.push(slow->val);
-    slow = slow->next;
-  }
+  ListNode *prev = NULL, *curr = A, *temp;
 
-  while (A != NULL)
+  while (curr != NULL)
   {
-    int test = s.top();
-    s.pop();
-    if (A->val != test)
-    {
-      return 0;
-    }
-    A = A->next;
+    temp = curr->next;
+    curr->next = prev;
+    prev = curr;
+    curr = temp;
   }
-  return 1;
+  A = prev;
+  return A;
 }
 
 int main()
@@ -45,9 +37,9 @@ int main()
     prevTemp->next = temp;
     prevTemp = temp;
   }
-  int v2 = lPalin(A);
+  ListNode *v2 = reverseList(A);
   cout << v2 << endl;
-  temp = A;
+  temp = v2;
   while (temp != NULL)
   {
     cout << temp->val << " ";

@@ -66,7 +66,7 @@ int main()
   ListNode *v2 = deleteDuplicates(A);
   cout << v2->val << endl;
   temp = v2;
-  while (temp->next != NULL)
+  while (temp != NULL)
   {
     cout << temp->val << " ";
     temp = temp->next;

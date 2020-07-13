@@ -50,7 +50,7 @@ int main()
   ListNode *v2 = deleteDuplicates(A);
 
   temp = v2;
-  while (temp->next != NULL)
+  while (temp != NULL)
   {
     cout << temp->val << " ";
     temp = temp->next;
