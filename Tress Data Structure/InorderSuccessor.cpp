@@ -72,3 +72,5 @@ int main()
   cout << temp->val;
   return 0;
 }
+
+//https://gist.github.com/mycodeschool/6515e1ec66482faf9d79
