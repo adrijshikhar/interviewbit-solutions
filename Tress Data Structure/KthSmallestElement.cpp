@@ -36,26 +36,42 @@ TreeNode *makeBinaryTree(vector<int> &A)
   return root;
 }
 
-void printBinaryTree(TreeNode *root)
+void traverseBST(TreeNode *root, priority_queue<int, vector<int>, greater<int>> &pq)
 {
-  if (root == NULL)
+  if (root == NULL || root->val == -1)
   {
     return;
   }
-  printBinaryTree(root->left);
-  printBinaryTree(root->right);
-  cout << root->val << " ";
+  pq.push(root->val);
+  traverseBST(root->left, pq);
+  traverseBST(root->right, pq);
+}
+
+int kthsmallest(TreeNode *A, int B)
+{
+  priority_queue<int, vector<int>, greater<int>> pq;
+  traverseBST(A, pq);
+  int i = 0, num;
+
+  while (i < B && !pq.empty())
+  {
+    num = pq.top();
+    pq.pop();
+    cout << num << " ";
+    i++;
+  }
+  return num;
 }
 
 int main()
 {
-  vector<int> v1{4, 2, 6, 1, 3, 5, 7};
+  vector<int> v1{2, 1, 3, -1, -1, -1, -1};
   TreeNode *temp;
 
   TreeNode *v2 = makeBinaryTree(v1);
   cout << v2 << endl;
   temp = v2;
-  printBinaryTree(temp);
-
+  int val = kthsmallest(temp, 2);
+  cout << val;
   return 0;
 }
