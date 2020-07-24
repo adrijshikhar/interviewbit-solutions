@@ -39,38 +39,31 @@ TreeNode *makeBinaryTree(vector<int> &A)
   return root;
 }
 
-TreeNode *removeHaveNodes(TreeNode *root)
+int subTreeHeight(TreeNode *root)
 {
-  if (root == NULL)
-    return NULL;
-
-  root->left = removeHaveNodes(root->left);
-  root->right = removeHaveNodes(root->right);
-
-  if (root->left == NULL && root->right == NULL)
-    return root;
-
-  /* if current nodes is a half node with left 
-       child NULL left, then it's right child is 
-       returned and replaces it in the given tree */
-  if (root->left == NULL)
+  if (root != NULL)
   {
-    TreeNode *new_root = root->right;
-    free(root); // To avoid memory leak
-    return new_root;
+    int x = subTreeHeight(root->left);
+    int y = subTreeHeight(root->right);
+    if (x > y)
+      return x + 1;
+    else
+      return y + 1;
   }
+  return 0;
+}
 
-  /* if current nodes is a half node with right 
-       child NULL right, then it's right child is 
-       returned and replaces it in the given tree  */
-  if (root->right == NULL)
+int isBalanced(TreeNode *A)
+{
+  if (A == NULL)
+    return 1;
+  int l = subTreeHeight(A->left);
+  int r = subTreeHeight(A->right);
+  if (abs(l - r) <= 1 && isBalanced(A->left) && isBalanced(A->right))
   {
-    TreeNode *new_root = root->left;
-    free(root); // To avoid memory leak
-    return new_root;
+    return 1;
   }
-
-  return root;
+  return 0;
 }
 
 void printBinaryTree(TreeNode *root)
@@ -92,10 +85,8 @@ int main()
   TreeNode *v2 = makeBinaryTree(v1);
   cout << v2 << endl;
   temp = v2;
-  TreeNode *t2 = removeHaveNodes(temp);
+  int t2 = isBalanced(temp);
   cout << t2 << endl;
-
-  printBinaryTree(v2);
 
   return 0;
 }
