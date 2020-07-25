@@ -36,33 +36,23 @@ void pushall(TreeNode *root, stack<TreeNode *> &path)
 
 vector<int> postorderTraversal(TreeNode *root)
 {
+  stack<TreeNode *> nodeStack;
   vector<int> result;
-  if (!root)
+  //base case
+  if (root == NULL)
     return result;
-  stack<TreeNode *> path;
-
-  while (true)
+  nodeStack.push(root);
+  while (!nodeStack.empty())
   {
-    while (root != NULL)
-    {
-      path.push(root);
-      path.push(root);
-      root = root->left;
-    }
-    if (path.empty())
-      return result;
-    root = path.top();
-    path.pop();
-    if (!path.empty() && path.top() == root)
-      root = root->right;
-
-    else
-    {
-      result.push_back(root->val);
-      root = NULL;
-    }
+    TreeNode *node = nodeStack.top();
+    result.push_back(node->val);
+    nodeStack.pop();
+    if (node->left)
+      nodeStack.push(node->left);
+    if (node->right)
+      nodeStack.push(node->right);
   }
-
+  reverse(result.begin(), result.end());
   return result;
 }
 int main()
