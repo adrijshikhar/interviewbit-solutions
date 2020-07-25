@@ -33,67 +33,22 @@ TreeNode *makeBinaryTree(vector<int> &A, TreeNode *root, int i)
   return root;
 }
 
-bool flag = false;
-void getLevel(TreeNode *root, int level, int B, vector<int> &row)
-{
-  if (root == NULL)
-    return;
-  if (level == 1)
-    row.push_back(root->val);
 
-  if (level > 1)
-  {
-    getLevel(root->left, level - 1, B, row);
-    getLevel(root->right, level - 1, B, row);
-  }
-}
-
-int height(TreeNode *node)
-{
-  if (node == NULL)
-    return 0;
-  else
-  {
-    /* compute the height of each subtree */
-    int lheight = height(node->left);
-    int rheight = height(node->right);
-
-    /* use the larger one */
-    if (lheight > rheight)
-      return (lheight + 1);
-    else
-      return (rheight + 1);
-  }
-}
-int findInRow(vector<int> &row, int num)
-{
-  for (int i = 0; i < row.size(); i++)
-  {
-    if (num == row[i])
-    {
-      return i;
-    }
-  }
-  return -1;
-}
-vector<int> solve(TreeNode *A, int B)
+vector<int> solve(TreeNode *A)
 {
   queue<TreeNode *> q;
-  map<int, vector<int>> mp;
-  int cur_level = 0;
-  int level = 0;
+  vector<int> mp;
   q.push(A);
   q.push(NULL);
-  vector<int> temp;
+  int temp;
   while (!q.empty())
   {
     TreeNode *fr = q.front();
     q.pop();
     if (fr == NULL)
     {
-      mp[level] = temp;
-      temp.clear();
-      level++;
+      mp.push_back(temp);
+
       if (!q.empty())
       {
         q.push(NULL);
@@ -101,31 +56,19 @@ vector<int> solve(TreeNode *A, int B)
     }
     else
     {
-      temp.push_back(fr->val);
-      if (fr->left and fr->left->val == B)
+      temp = fr->val;
+      if (fr->left)
       {
-        cur_level = level;
+        q.push(fr->left);
       }
-      else if (fr->right and fr->right->val == B)
+      if (fr->right)
       {
-        cur_level = level;
-      }
-      else
-      {
-        if (fr->left)
-        {
-          q.push(fr->left);
-        }
-        if (fr->right)
-        {
-          q.push(fr->right);
-        }
+        q.push(fr->right);
       }
     }
   }
 
-  vector<int> result = mp[cur_level + 1];
-  return result;
+  return mp;
 }
 int main()
 {
@@ -142,7 +85,7 @@ int main()
   root->right->left = new TreeNode(212);
   root->right->left->right = new TreeNode(9881);
 
-  vector<int> v3 = solve(v2, 5);
+  vector<int> v3 = solve(v2);
 
   for (int i = 0; i < v3.size(); i++)
   {
@@ -151,3 +94,4 @@ int main()
 
   return 0;
 }
+
