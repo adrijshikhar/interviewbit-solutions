@@ -33,10 +33,7 @@ string multiple(int A)
       mq.push(fr + "0");
       mq.push(fr + "1");
     }
-    else
-    {
-      cout << rem << endl;
-    }
+ 
   }
   return "";
 }
