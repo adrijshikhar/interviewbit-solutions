@@ -30,7 +30,7 @@ int wordLadder1(string A, string B, vector<string> &C)
   {
     string temp = myque.front();
     myque.pop();
-    // checking all 8 possible moves
+
     for (int i = 0; i < C.size(); i++)
     {
       string temp2 = C[i];

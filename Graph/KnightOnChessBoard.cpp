@@ -19,7 +19,7 @@ bool valid(int x, int y, int A, int B)
 
 int knight(int A, int B, int C, int D, int E, int F)
 {
-  // visited array
+
   queue<pair<int, int>> myque;
   int path[A][B];
   memset(path, 0, sizeof(path));
