@@ -2,31 +2,26 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int dpx[8] = {1, 1, 2, 2, -1, -1, -2, -2};
-int dpy[8] = {-2, 2, 1, -1, 2, -2, 1, -1};
-
-// this function is used to check wheter the i,j column lies inside the rectangle or not
 bool valid(int x, int y, int A, int B)
 {
-  if (x < 0 || x > A || y < 0 || y > B)
+  if (x < 1 || x > A || y < 1 || y > B)
   {
     return false;
   }
   return true;
 }
 
-// this function check wheter the point x,y lies inside any circle or not
-
 int knight(int A, int B, int C, int D, int E, int F)
 {
-
+  int dpx[8] = {1, 1, 2, 2, -1, -1, -2, -2};
+  int dpy[8] = {-2, 2, 1, -1, 2, -2, 1, -1};
   queue<pair<int, int>> myque;
-  int path[A][B];
-  memset(path, 0, sizeof(path));
+
+  vector<vector<int>> path(A + 1, vector<int>(B + 1, 0));
 
   if (C == E && D == F)
     return 0;
-  myque.push({C - 1, D - 1});
+  myque.push({C, D});
   while (!myque.empty())
   {
     pair<int, int> temp = myque.front();
@@ -48,26 +43,29 @@ int knight(int A, int B, int C, int D, int E, int F)
           if (path[temp.first][temp.second] + 1 < path[a][b])
             path[a][b] = path[temp.first][temp.second] + 1;
         }
-        if (a == E && b == F)
-        {
-          return path[a][b];
-        }
       }
+      if (a == E && b == F)
+        return path[a][b];
     }
   }
+  for (int i = 0; i < A + 1; i++)
+  {
+    for (int j = 0; j < B + 1; j++)
+    {
+      cout << path[i][j] << " ";
+    }
+    cout << endl;
+  }
 
-
-  if (path[E - 1][F - 1] == 0)
+  if (path[E][F] == 0)
     return -1;
 
-  return path[E - 1][F - 1];
+  return path[E][F];
 }
-
-
 
 int main()
 {
-  int A = 8, B = 8, C = 1, D = 1, E = 8, F = 8;
+  int A = 2, B = 20, C = 1, D = 18, E = 1, F = 5;
   int v2 = knight(A, B, C, D, E, F);
   cout << v2;
   return 0;
