@@ -79,7 +79,28 @@ public:
     int n = values.size();
     if (position >= n)
       throw "out of bounds";
+
+    update(0, 0, values.size() - 1, position, val);
   }
+
+  void update(int i, int start, int end, int idx, int val)
+  {
+    if (start == end)
+    {
+      values[idx] += val;
+      tree[i] += val;
+    }
+    else
+    {
+      int mid = (start + end) / 2;
+      if (start <= idx and idx <= mid)
+        update(2 * i + 1, start, mid, idx, val);
+      else
+        update(2 * i + 2, mid + 1, end, idx, val);
+      tree[i] = tree[2 * i + 1] + tree[2 * i + 2];
+    }
+  }
+
   TreeNode *insertNodes(TreeNode *root, int i)
   {
     if (i < tree.size())
@@ -95,7 +116,7 @@ public:
 
   void makeBinaryTree()
   {
-    TreeNode *root =  insertNodes(root, 0);
+    TreeNode *root = insertNodes(root, 0);
     head = root;
   }
 };
@@ -111,9 +132,8 @@ int main()
     cout << t[i] << " ";
   }
   cout << endl;
+  temp->insert(6, 2);
   temp->makeBinaryTree();
-
   temp->printLevelOrder();
-
   return 0;
 }
