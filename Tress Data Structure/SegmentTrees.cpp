@@ -13,41 +13,36 @@ class SegmentTrees
 {
 private:
   TreeNode *head;
+  vector<int> values;
+  vector<int> tree;
 
 public:
   SegmentTrees(vector<int> &A) : head()
   {
-    queue<TreeNode *> q;
-    TreeNode *t1, *t2, *h;
-    int n = A.size(), c = 0;
-    for (int i = 0; i < n; i++)
-      q.push(new TreeNode(A[i]));
-    if (n % 2 == 1)
-      q.push(NULL);
-
-    while (!q.empty())
+    values = A;
+    int s = 2 * (values.size()) - 1;
+    tree.resize(s);
+    build(0, 0, values.size() - 1);
+  }
+  void build(int i, int start, int end)
+  {
+    if (start == end)
+      tree[i] = values[start];
+    else
     {
-      t1 = q.front();
-      q.pop();
-      t2 = q.front();
-      q.pop();
-      if (t2)
-        c = t1->val + t2->val;
-      else
-        c = t1->val;
-
-      h = new TreeNode(c);
-      h->left = t1;
-      h->right = t2;
-      if (!q.empty())
-
-        q.push(h);
+      int mid = start + (end - start) / 2;
+      build(2 * i + 1, start, mid);
+      build(2 * i + 2, mid + 1, end);
+      tree[i] = tree[2 * i + 1] + tree[2 * i + 2];
     }
-    head = h;
   }
   void showHead()
   {
     cout << head << endl;
+  }
+  vector<int> getTree()
+  {
+    return tree;
   }
   TreeNode *getHead()
   {
@@ -79,13 +74,46 @@ public:
       }
     }
   }
+  void insert(int val, int position)
+  {
+    int n = values.size();
+    if (position >= n)
+      throw "out of bounds";
+  }
+  TreeNode *insertNodes(TreeNode *root, int i)
+  {
+    if (i < tree.size())
+    {
+      TreeNode *temp = new TreeNode(tree[i]);
+      root = temp;
+      root->left = insertNodes(root->left, 2 * i + 1);
+      root->right = insertNodes(root->right, 2 * i + 2);
+    }
+
+    return root;
+  }
+
+  void makeBinaryTree()
+  {
+    TreeNode *root =  insertNodes(root, 0);
+    head = root;
+  }
 };
 
 int main()
 {
-  vector<int> v1{1, 2, 3, 4};
+  vector<int> v1{1, 2, 3, 4, 5};
   SegmentTrees *temp = new SegmentTrees(v1);
   temp->showHead();
+  vector<int> t = temp->getTree();
+  for (int i = 0; i < t.size(); i++)
+  {
+    cout << t[i] << " ";
+  }
+  cout << endl;
+  temp->makeBinaryTree();
+
   temp->printLevelOrder();
+
   return 0;
 }
