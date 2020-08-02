@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#define ll long long
+
 using namespace std;
 
 int uniquePathsWithObstacles(vector<vector<int>> A)
