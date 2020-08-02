@@ -2,7 +2,7 @@
 
 using namespace std;
 
-int longestConsecutive(int A, vector<vector<int>> &B)
+int path(int A, vector<vector<int>> &B)
 {
   int n = B.size();
   if (1 == A)
@@ -46,7 +46,7 @@ int longestConsecutive(int A, vector<vector<int>> &B)
 int main()
 {
   vector<vector<int>> v1{{1, 3}, {2, 3}, {3, 1}};
-  int v2 = longestConsecutive(3, v1);
+  int v2 = path(3, v1);
 
   cout << v2 << " ";
 
