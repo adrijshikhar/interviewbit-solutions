@@ -2,18 +2,13 @@
 #define ll long long
 using namespace std;
 
-int min3(int x, int y, int z)
-{
-  return min(min(x, y), z);
-}
-int minDistance(string A, string B)
-{
+int min3(int x, int y, int z) { return min(min(x, y), z); }
+
+int minDistance(string A, string B) {
   int m = A.size(), n = B.size(), dp[m + 1][n + 1];
 
-  for (int i = 0; i <= m; i++)
-  {
-    for (int j = 0; j <= n; j++)
-    {
+  for (int i = 0; i <= m; i++) {
+    for (int j = 0; j <= n; j++) {
       if (i == 0)
         dp[i][j] = j; // Min. operations = j
 
@@ -33,8 +28,7 @@ int minDistance(string A, string B)
   return dp[m][n];
 }
 
-int main()
-{
+int main() {
   int v2 = minDistance("wsdg", "asdf");
 
   cout << v2 << " ";
