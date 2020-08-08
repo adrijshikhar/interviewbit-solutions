@@ -2,30 +2,29 @@
 
 using namespace std;
 
-vector<int> maximiseProfit(vector<int> &p, vector<int> &w, int m)
-{
-  reverse(p.begin(), p.end());
-  reverse(w.begin(), w.end());
+vector<int> maximiseProfit(vector<int> &p, vector<int> &w, int m) {
 
   int n = w.size();
   vector<int> ans(n, 0);
-  int mp = 0, mw = 0;
-  for (int i = 0; i < n; i++)
-  {
-    if (mw + w[i] <= m)
-    {
-      mw += w[i];
-      ans[i] = 1;
-      mp += (w[i] * p[i]);
+  vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
+
+  for (int i = 1; i < n + 1; i++) {
+    for (int j = 1; j < m + 1; j++) {
+      if (w[i - 1] > j)
+        dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+      else
+        dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - w[i - 1]] + p[i - 1]);
     }
   }
-  reverse(ans.begin(), ans.end());
-
+  for (int i = 0; i < n + 1; i++) {
+    for (int j = 0; j < m + 1; j++)
+      cout << dp[i][j] << " ";
+    cout << endl;
+  }
   return ans;
 }
 
-int main()
-{
+int main() {
   vector<int> p{1, 2, 5, 6};
   vector<int> w{2, 3, 4, 5};
   int m = 8;
