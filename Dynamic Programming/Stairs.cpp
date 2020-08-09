@@ -1,26 +1,22 @@
 #include <bits/stdc++.h>
-#define ll long long
 using namespace std;
 
-unordered_map<ll, ll> mp;
-ll stairs(ll n)
-{
-  if (n <= 2)
+int stairs(int n) {
+  int dp[n];
+  if (n == 0)
     return 1;
-
-  if (mp.find(n - 1) == mp.end())
-    mp[n - 1] = stairs(n - 1);
-
-  if (mp.find(n - 2) == mp.end())
-    mp[n - 2] = stairs(n - 2);
-
-  return mp[n - 1] + mp[n - 2];
+  dp[0] = 1;
+  dp[1] = 2;
+  for (int i = 2; i < n; i++) {
+    dp[i] = dp[i - 1] + dp[i - 2];
+  }
+  return dp[n - 1];
 }
 
-int main()
-{
-  ll v1 = 3;
-  ll v2 = stairs(v1);
+int main() {
+  int v1 = 4;
+
+  int v2 = stairs(v1);
 
   cout << v2 << " ";
 
