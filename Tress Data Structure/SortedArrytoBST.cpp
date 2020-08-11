@@ -38,7 +38,6 @@ TreeNode *makeBST(const vector<int> &A, TreeNode *root, int low, int high)
   int mid = low + (high - low) / 2;
   if (low <= high)
   {
-    cout << low << " " << mid << " " << high << endl;
     root = new TreeNode(A[mid]);
   }
   else
