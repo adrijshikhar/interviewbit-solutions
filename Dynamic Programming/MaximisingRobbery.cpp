@@ -6,7 +6,7 @@ unordered_map<ll, ll> mp;
 ll maximiseRobbery(vector<ll> &v, int i)
 {
   if (i < 2)
-    return -1;
+    return 0;
   if (mp.find(i - 1) == mp.end())
     mp[i - 1] = maximiseRobbery(v, i - 1);
 
