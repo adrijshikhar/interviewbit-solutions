@@ -2,28 +2,14 @@
 
 using namespace std;
 
-struct TreeNode
-{
+struct TreeNode {
   int val;
   TreeNode *left, *right;
   TreeNode(int x) : val(x), right(NULL), left(NULL) {}
 };
 
-TreeNode *insertNode(TreeNode *root, int val)
-{
-  if (root == NULL)
-    root = new TreeNode(val);
-  else if (val <= root->val)
-    root->left = insertNode(root->left, val);
-  else
-    root->right = insertNode(root->right, val);
-  return root;
-}
-
-TreeNode *makeBinaryTree(vector<int> &A, TreeNode *root, int i)
-{
-  if (i < A.size())
-  {
+TreeNode *makeBinaryTree(vector<int> &A, TreeNode *root, int i) {
+  if (i < A.size()) {
     TreeNode *temp = new TreeNode(A[i]);
     root = temp;
     root->left = makeBinaryTree(A, root->left, 2 * i + 1);
@@ -33,15 +19,11 @@ TreeNode *makeBinaryTree(vector<int> &A, TreeNode *root, int i)
   return root;
 }
 
-TreeNode *makeBST(const vector<int> &A, TreeNode *root, int low, int high)
-{
+TreeNode *makeBST(const vector<int> &A, TreeNode *root, int low, int high) {
   int mid = low + (high - low) / 2;
-  if (low <= high)
-  {
+  if (low <= high) {
     root = new TreeNode(A[mid]);
-  }
-  else
-  {
+  } else {
     return NULL;
   }
 
@@ -50,16 +32,13 @@ TreeNode *makeBST(const vector<int> &A, TreeNode *root, int low, int high)
   return root;
 }
 
-TreeNode *sortedArrayToBST(const vector<int> &A)
-{
+TreeNode *sortedArrayToBST(const vector<int> &A) {
   TreeNode *root = makeBST(A, root, 0, A.size() - 1);
   return root;
 }
 
-void printBinaryTree(TreeNode *root)
-{
-  if (root == NULL)
-  {
+void printBinaryTree(TreeNode *root) {
+  if (root == NULL) {
     return;
   }
   cout << root->val << " ";
@@ -67,8 +46,7 @@ void printBinaryTree(TreeNode *root)
   printBinaryTree(root->right);
 }
 
-int main()
-{
+int main() {
   vector<int> v1{1, 2, 3, 4, 5, 6, 7};
   TreeNode *temp;
 
