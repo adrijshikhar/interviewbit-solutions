@@ -34,7 +34,6 @@ int LRUCache::get(int key) {
 }
 
 void LRUCache::set(int key, int value) {
-  list<pair<int, int>>::iterator it;
   pair<int, int> kv;
 
   if (mp.find(key) != mp.end()) {
